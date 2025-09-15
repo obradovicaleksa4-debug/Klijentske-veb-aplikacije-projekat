@@ -1,0 +1,57 @@
+<div class="login-container">
+  <h2>Prijavite se</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        id="email"
+        type="text"
+        formControlName="email"
+        placeholder="Email"
+      />
+      <div
+        *ngIf="
+          loginForm.get('email')?.invalid &&
+          (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+        "
+        class="error-message"
+      >
+        <span *ngIf="loginForm.get('email')?.errors?.['required']"
+          >Email je obavezan.</span
+        >
+        <span *ngIf="loginForm.get('email')?.errors?.['email']"
+          >Molimo unesite validnu email adresu.</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Lozinka:</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+      />
+      <div
+        *ngIf="
+          loginForm.get('password')?.invalid &&
+          (loginForm.get('password')?.dirty ||
+            loginForm.get('password')?.touched)
+        "
+        class="error-message"
+      >
+        <span *ngIf="loginForm.get('password')?.errors?.['required']"
+          >Lozinka je obavezna.</span
+        >
+      </div>
+    </div>
+
+    <div *ngIf="loginError" class="error-message server-error">
+      <span>{{ loginError }}</span>
+    </div>
+
+    <button type="submit">Prijavite se</button>
+  </form>
+  <p>Nemate nalog? <a href="/register">Registrujte se ovde.</a></p>
+</div>

@@ -1,0 +1,71 @@
+<app-navbar></app-navbar>
+
+<div class="home-container">
+  <header class="main-header">
+    <h1>Digitalni Bioskip Singidunum</h1>
+    <p></p>
+    <div class="search-bar-placeholder">
+      <input
+        type="text"
+        placeholder="Pretraži filmove..."
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="searchMovies()"
+      />
+      <button (click)="searchMovies()">Pretraži</button>
+    </div>
+  </header>
+
+  <nav class="categories-nav">
+    <h2>Žanrovi</h2>
+    <div class="categories-list-placeholder">
+      <span
+        class="category-tag"
+        *ngFor="let genre of availableGenres"
+        [class.active]="genre === selectedGenre"
+        (click)="filterByGenre(genre)"
+      >
+        {{ genre }}
+      </span>
+    </div>
+  </nav>
+
+  <main class="projections-feed">
+    <h2>Dostupne projekcije</h2>
+    <div
+      *ngIf="!filteredMovies || filteredMovies.length === 0"
+      class="no-movies-message"
+    >
+      <p>No movies available at the moment. Please check back later!</p>
+    </div>
+
+    <div
+      *ngIf="filteredMovies && filteredMovies.length > 0"
+      class="projections-grid"
+    >
+      <div class="movie-projection-card" *ngFor="let movie of filteredMovies">
+        <img
+          [src]="movie.poster"
+          alt="{{ movie.title }}"
+          class="movie-poster"
+          loading="lazy"
+        />
+        <div class="card-content">
+          <h3 class="movie-title">{{ movie.title }}</h3>
+          <p class="short-description">{{ movie.shortDescription }}</p>
+          <div class="movie-meta-details">
+            <span class="movie-genre">
+              {{ getMovieGenres(movie) }}
+            </span>
+            <span class="movie-duration">{{ movie.runTime }} min</span>
+          </div>
+          <button
+            class="details-button"
+            [routerLink]="['/movie', movie.movieId]"
+          >
+            Opširnije
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

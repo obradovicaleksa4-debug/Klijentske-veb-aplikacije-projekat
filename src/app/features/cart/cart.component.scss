@@ -1,0 +1,125 @@
+:host {
+  display: block;
+  background-color: #001955;
+  min-height: calc(100vh - 60px);
+  box-sizing: border-box;
+  color: #ffffff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cart-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #002b90;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  text-transform: none;
+}
+
+.loading-message,
+.empty-cart-message,
+.error-message {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2em;
+  color: #cccccc;
+}
+
+.error-message {
+  color: #dc3545;
+}
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.movie-card {
+  display: flex;
+  background-color: #002b90;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.movie-card-poster {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px 0 0 8px;
+}
+
+.movie-card-info {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.movie-card-info h2 {
+  font-size: 1.5em;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.movie-card-info p {
+  font-size: 0.95em;
+  color: #e0e0e0;
+  margin-bottom: 5px;
+}
+
+.movie-card-info strong {
+  color: #f0f0f0;
+}
+
+.remove-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+  align-self: flex-start;
+
+  &:hover {
+    background-color: #c82333;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-container {
+    padding: 15px;
+  }
+  .movie-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .movie-card-poster {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    border-radius: 8px 8px 0 0;
+  }
+  .remove-button {
+    align-self: center;
+  }
+}

@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+
+<div class="movie-details-container" *ngIf="movie">
+  <div class="movie-header">
+    <img
+      *ngIf="movie.poster"
+      [src]="movie.poster"
+      alt="{{ movie.title }} Poster"
+      class="movie-details-poster"
+    />
+    <div class="movie-title-section">
+      <h1>{{ movie.title }}</h1>
+      <p class="movie-tagline">{{ movie.shortDescription }}</p>
+    </div>
+  </div>
+
+  <div class="movie-info">
+    <p><strong>Originalni Naziv:</strong> {{ movie.originalTitle }}</p>
+    <p><strong>Zanr:</strong> {{ getMovieGenres(movie) }}</p>
+    <p><strong>Režiser:</strong> {{ movie.director.name }}</p>
+    <p><strong>Glumci:</strong> {{ getMovieActors(movie) }}</p>
+    <p><strong>Kratak Opis:</strong> {{ movie.description }}</p>
+    <p><strong>Datum Izlaska:</strong> {{ movie.startDate }}</p>
+    <p><strong>Vreme Trajanja:</strong> {{ movie.runTime }} minuta</p>
+  </div>
+
+  <div class="movie-actions">
+    <button class="action-button mark-watched" (click)="markAsWatched()">
+      {{ isWatched ? "Označeno kao Gledano" : "Oznaci kao Gledano" }}
+    </button>
+    <button class="action-button add-to-cart" (click)="addMovieToCart()">
+      {{ isReserved ? "Ukloni iz Korpe" : "Dodaj u Korpu" }}
+    </button>
+  </div>
+
+  <div *ngIf="isWatched" class="review-section">
+    <h3>Vaša Ocena</h3>
+    <div class="rating-stars">
+      <span
+        *ngFor="let star of [1, 2, 3, 4, 5]"
+        class="star"
+        [class.filled]="star <= selectedRating"
+        (click)="setRating(star)"
+      >
+        &#9733;
+      </span>
+    </div>
+    <textarea
+      [(ngModel)]="reviewComment"
+      placeholder="Napišite komentar (opciono)..."
+    ></textarea>
+    <button class="action-button review-button" (click)="saveReview()">
+      Sačuvaj Ocenu
+    </button>
+    <p *ngIf="showReviewSavedMessage" class="review-saved-message">
+      Ocena sačuvana!
+    </p>
+  </div>
+</div>
+
+<div class="loading-message" *ngIf="!movie">Učitavanje detalja filma...</div>

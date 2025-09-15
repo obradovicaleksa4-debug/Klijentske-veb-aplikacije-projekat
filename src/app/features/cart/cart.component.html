@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+
+<div class="cart-container">
+  <h1>Rezervisani Filmovi</h1>
+
+  <div *ngIf="isLoading" class="loading-message">
+    Učitavanje rezervisanih filmova...
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div
+    *ngIf="!isLoading && !errorMessage && reservedMovies.length === 0"
+    class="empty-cart-message"
+  >
+    Trenutno nemate rezervisanih filmova.
+  </div>
+
+  <div
+    *ngIf="!isLoading && !errorMessage && reservedMovies.length > 0"
+    class="movie-list"
+  >
+    <div *ngFor="let movie of reservedMovies" class="movie-card">
+      <img
+        *ngIf="movie.poster"
+        [src]="movie.poster"
+        alt="{{ movie.title }} Poster"
+        class="movie-card-poster"
+      />
+      <div class="movie-card-info">
+        <h2>{{ movie.title }}</h2>
+        <p><strong>Originalni Naziv:</strong> {{ movie.originalTitle }}</p>
+        <p><strong>Zanr:</strong> {{ getMovieGenres(movie) }}</p>
+        <p><strong>Režiser:</strong> {{ movie.director.name }}</p>
+        <p><strong>Glumci:</strong> {{ getMovieActors(movie) }}</p>
+        <p>
+          <strong>Datum Izlaska:</strong>
+          {{ movie.startDate | date : "dd.MM.yyyy" }}
+        </p>
+        <p><strong>Vreme Trajanja:</strong> {{ movie.runTime }} minuta</p>
+        <button class="remove-button" (click)="removeFromCart(movie.movieId)">
+          Ukloni iz Korpe
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
